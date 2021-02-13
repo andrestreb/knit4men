@@ -1,0 +1,29 @@
+.Header {
+    
+}
+
+.navLogo {
+    text-decoration: none;
+    text-transform: uppercase;
+    color: white;
+    flex-grow: 1;
+}
+
+.navbarDisplayFlex {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-grow: 1;
+}
+
+.navDisplayFlex {
+    display: flex;
+    justify-content: flex-end;
+    flex-grow: 1;
+}
+
+.linkText {
+    text-decoration: none;
+    text-transform: uppercase;
+    color: white;
+  }
