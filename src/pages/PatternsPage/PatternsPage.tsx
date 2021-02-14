@@ -1,55 +1,84 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import './PatternsPage.scss'
-import { Container } from '@material-ui/core'
-
+import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
+import { Container, Card, CardMedia, CardContent, Box, Typography, Chip } from '@material-ui/core'
 import { RouteComponentProps } from 'react-router-dom'
+import { PATTERNS } from '../../shared/patterns'
 
-export default class PatternsPage extends React.PureComponent<IPatternsPageProps, IPatternsPageState> {
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    root: {
+      display: 'flex',
+      flexDirection: 'column',
+      maxWidth: 275,
+      minWidth: 200,
+      maxHeight: 550,
+      margin: 10,
 
-  constructor(props: IPatternsPageProps) {
-    super(props);
-    this.state = {
-      name: this.props.history.location.pathname.substring(
-        1,
-        this.props.history.location.pathname.length
-      ).replace('/', '')
-    }
-  }
+    },
+    media: {
+      top: 0,
+      maxHeight: '200px',
+    },
+    cardContainer: {
+      display: 'flex',
+      flexWrap: 'wrap',
+    },
+    cardTitle: {
+      fontSize: 18,
+    },
+    cardDescription: {
+      fontSize: 14,
+    },
+    cardComplexity: {
+      marginLeft: '12px',
+      marginBottom: '6px',
+    },
+  }),
+);
 
-  // If you need 'shouldComponentUpdate' -> Refactor to React.Component
-  // Read more about component lifecycle in the official docs:
-  // https://reactjs.org/docs/react-component.html
 
-  /*
-  public shouldComponentUpdate(nextProps: IMyPageProps, nextState: IMyPageState) {
-    // invoked before rendering when new props or state are being received.
-    return true // or prevent rendering: false
-  } */
+export default function PatternsPage() {
+  const classes = useStyles();
+  const [patterns, setPatterns] = useState<PatternType[]>([]);
 
-  static getDerivedStateFromProps: React.GetDerivedStateFromProps<IPatternsPageProps, IPatternsPageState> = (props: IPatternsPageProps, state: IPatternsPageState) => {
-    // invoked right before calling the render method, both on the initial mount and on subsequent updates
-    // return an object to update the state, or null to update nothing.
-    return null
-  }
+  useEffect(() => {
+    return setPatterns(PATTERNS)
+  }, [])
 
-  public getSnapshotBeforeUpdate(prevProps: IPatternsPageProps, prevState: IPatternsPageState) {
-    // invoked right before the most recently rendered output is committed
-    // A snapshot value (or null) should be returned.
-    return null
-  }
-
-  componentDidUpdate(prevProps: IPatternsPageProps, prevState: IPatternsPageState, snapshot: IPatternsPageSnapshot) {
-    // invoked immediately after updating occurs. This method is not called for the initial render.
-    // will not be invoked if shouldComponentUpdate() returns false.
-  }
-
-  render() {
+  const patternsList = patterns.map((pattern: PatternType) => {
     return (
-      <div className="PatternsPage">
-        {this.state.name} Component
-      </div>
+      <Card className={classes.root} key={pattern.id}>
+        <CardMedia
+          component="img"
+          alt={pattern.name}
+          className={classes.media}
+          image={pattern.image}
+          title={pattern.name}
+        />
+        <CardContent className="CardContent">
+          <Typography className={classes.cardTitle} component="h4">
+            {pattern.name}
+          </Typography>
+          <Typography className={classes.cardDescription} component="h5" color="textSecondary">
+            {pattern.description}
+          </Typography>
+        </CardContent>
+        <Box className={classes.cardComplexity}>
+          Complexity: <Chip color="primary" label={pattern.complexity} size="small" /> - <Chip color="secondary" label={pattern.category} size="small" />
+        </Box>
+      </Card>
     )
   }
+  )
+
+  return (
+    <div className="PatternsPage">
+      <Container className={classes.cardContainer}>
+        {patternsList}
+      </Container>
+    </div>
+  )
 }
 
 interface IPatternsPageProps extends RouteComponentProps<{ name: string }> {
@@ -58,6 +87,15 @@ interface IPatternsPageProps extends RouteComponentProps<{ name: string }> {
 
 interface IPatternsPageState {
   name: string
+}
+
+interface PatternType {
+  id: number
+  name: string
+  image: string
+  description: string
+  category: string
+  complexity: number
 }
 
 interface IPatternsPageSnapshot {

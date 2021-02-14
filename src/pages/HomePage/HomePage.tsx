@@ -1,55 +1,44 @@
 import React from 'react'
 import './HomePage.scss'
-import { Container } from '@material-ui/core'
+import { Card, CardContent, CardMedia, CardActions, Button, Typography } from '@material-ui/core'
 
 import { RouteComponentProps } from 'react-router-dom'
 
-export default class HomePage extends React.PureComponent<IHomePageProps, IHomePageState> {
-
-  constructor(props: IHomePageProps) {
-    super(props);
-    this.state = {
-      name: this.props.history.location.pathname.substring(
-        1,
-        this.props.history.location.pathname.length
-      ).replace('/', '')
-    }
-  }
-
-  // If you need 'shouldComponentUpdate' -> Refactor to React.Component
-  // Read more about component lifecycle in the official docs:
-  // https://reactjs.org/docs/react-component.html
-
-  /*
-  public shouldComponentUpdate(nextProps: IMyPageProps, nextState: IMyPageState) {
-    // invoked before rendering when new props or state are being received.
-    return true // or prevent rendering: false
-  } */
-
-  static getDerivedStateFromProps: React.GetDerivedStateFromProps<IHomePageProps, IHomePageState> = (props: IHomePageProps, state: IHomePageState) => {
-    // invoked right before calling the render method, both on the initial mount and on subsequent updates
-    // return an object to update the state, or null to update nothing.
-    return null
-  }
-
-  public getSnapshotBeforeUpdate(prevProps: IHomePageProps, prevState: IHomePageState) {
-    // invoked right before the most recently rendered output is committed
-    // A snapshot value (or null) should be returned.
-    return null
-  }
-
-  componentDidUpdate(prevProps: IHomePageProps, prevState: IHomePageState, snapshot: IHomePageSnapshot) {
-    // invoked immediately after updating occurs. This method is not called for the initial render.
-    // will not be invoked if shouldComponentUpdate() returns false.
-  }
-
-  render() {
-    return (
-      <div className="HomePage">
-        {this.state.name} Component
+const TopCard = () => {
+  return (
+    <Card className="Card">
+      <div className="CardDetails">
+        <CardContent className="CardContent">
+          <Typography component="h2" variant="h2">
+            Welcome Knitter
+          </Typography>
+          <Typography component="h5" variant="h5" color="textSecondary">
+            Start your Knit Padawan path now
+          </Typography>
+        </CardContent>
+        <CardActions className="CardActions">
+          <Button variant="contained" color="primary">Start journey</Button>
+        </CardActions>
       </div>
-    )
-  }
+      <CardMedia
+        component="img"
+        alt="knitting"
+        height="250"
+        className="CardMedia"
+        image="https://cdn.shopify.com/s/files/1/0271/0203/articles/IMG_4994_edit_1400x.jpg?v=1552656727"
+        title="knitting"
+      />
+    </Card>
+  )
+}
+
+export default function HomePage() {
+
+  return (
+    <div className="HomePage">
+      <TopCard />
+    </div>
+  )
 }
 
 interface IHomePageProps extends RouteComponentProps<{ name: string }> {

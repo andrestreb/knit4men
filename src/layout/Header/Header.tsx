@@ -1,9 +1,9 @@
 import React from 'react'
 import './Header.scss'
 
-import { AppBar, Toolbar, Typography, List, ListItem, ListItemText, Container } from '@material-ui/core'
+import { AppBar, Toolbar, Typography, List, ListItem, ListItemText } from '@material-ui/core'
 
-import { NavLink, Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 
 const navLinks = [
   { title: 'Patterns', path: '/Patterns' },
@@ -13,30 +13,27 @@ const navLinks = [
 export default function Header() {
 
   return (
-
     <AppBar position="static" className="Header">
-        <Toolbar>
-          <div className="navbarDisplayFlex">
-            <NavLink to="/" className="navLogo">
-              <Typography variant="h5">
-                Knit4Men
-              </Typography>
-            </NavLink>
+      <Toolbar>
+        <div className="navbarDisplayFlex">
+          <NavLink to="/" className="navLogo">
+            <Typography variant="h5">
+              Knit4Men
+            </Typography>
+          </NavLink>
 
-            <List component="nav" aria-labelledby="main navigation" className="navDisplayFlex">
-              {navLinks.map(({ title, path }) => (
-                <NavLink to={path} key={title} className="linkText">
-                  <ListItem button>
-                    <ListItemText primary={title} />
-                  </ListItem>
-                </NavLink>
-              ))}
-            </List>
-
-          </div>
-        </Toolbar>
+          <List component="nav" aria-labelledby="main navigation" className="navDisplayFlex">
+            {navLinks.map(({ title, path }) => (
+              <NavLink to={path} key={title} className="linkText">
+                <ListItem button>
+                  <ListItemText primary={title} />
+                </ListItem>
+              </NavLink>
+            ))}
+          </List>
+        </div>
+      </Toolbar>
     </AppBar>
-
   )
 }
 

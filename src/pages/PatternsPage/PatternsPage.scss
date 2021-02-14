@@ -1,2 +1,18 @@
 .PatternsPage {
+    background-color: #f5f5f5;
+}
+
+.Container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.Card{
+    display: flex;
+    flex-direction: column;
+}
+
+.CardContent {
+    display: flex;
 }
