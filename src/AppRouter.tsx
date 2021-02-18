@@ -1,32 +1,36 @@
 // src/AppRouter.tsx
 
 import React, { FunctionComponent, Suspense } from 'react'
+import { StylesProvider } from '@material-ui/core/styles'
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import store from './redux/store'
-import App from './App'
 import HomePage from './pages/HomePage/HomePage'
 import AboutPage from './pages/AboutPage/AboutPage'
 import PatternsPage from './pages/PatternsPage/PatternsPage'
 import NotFoundPage from './pages/NotFoundPage/NotFoundPage'
+import PatternDetailsPage from './pages/PatternDetailsPage/PatternDetailsPage'
 import Header from './layout/Header/Header'
 
 const AppRouter: FunctionComponent = () => {
   return (
-    <Router>
-      <Provider store={store}>
-        <Suspense fallback={<span>Loading...</span>}>
-          <Header />
-          <Switch>
-            <Route exact path="/" component={HomePage} />
-            <Route exact path="/About" component={AboutPage} />
-            <Route exact path="/Patterns" component={PatternsPage} />
-            <Route path="/404" component={NotFoundPage} />
-            <Redirect to="/404" />
-          </Switch>
-        </Suspense>
-      </Provider>
-    </Router>
+    <StylesProvider injectFirst>
+      <Router>
+        <Provider store={store}>
+          <Suspense fallback={<span>Loading...</span>}>
+            <Header />
+            <Switch>
+              <Route exact path="/" component={HomePage} />
+              <Route exact path="/About" component={AboutPage} />
+              <Route exact path="/Patterns" component={PatternsPage} />
+              <Route path="/Patterns/:patternId" component={PatternDetailsPage} />
+              <Route path="/404" component={NotFoundPage} />
+              <Redirect to="/404" />
+            </Switch>
+          </Suspense>
+        </Provider>
+      </Router>
+    </StylesProvider>
   )
 }
 
