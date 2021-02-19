@@ -17,7 +17,7 @@ export const initUser = (): userObject => ({
   password: '',
 })
 
-Next, create an index and add model object for easy access, example: index.ts
+Next, create an  and add model object for easy access, example: index.ts
 
 /*
 Author: Eli Elad Elrom

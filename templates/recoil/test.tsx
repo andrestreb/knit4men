@@ -14,7 +14,7 @@ describe('<TemplateName />', () => {
   let component
 
   beforeEach(() => {
-    component = shallow(<RecoilRoot><TemplateName /></RecoilRoot>)
+    component = shallow(<TemplateName />)
   })
 
   test('It should mount', () => {
